@@ -1,39 +1,47 @@
 # NagiGen AI
 
-AI image studio starter: Next.js website + Expo Android client.
+AI image studio MVP: Next.js website + Expo Android client.
 
-## Features in this starter
-- Prompt-to-image generation through a server-side API route
-- Realistic, Anime, Logo, Poster, 3D and Watercolor prompt styles
-- Square, portrait and landscape image sizes
-- Responsive dark UI and image download
-- Expo Android starter that calls the same API
-- Supabase SQL schema for future user generation history
+## Included
+- AI image generation using a server-side OpenAI Images API route
+- Realistic, Anime, Logo, Poster, 3D and Watercolor styles
+- Square, portrait and landscape output sizes
+- Responsive website and image download
+- Optional Supabase email/password sign-up and sign-in
+- Signed-in users can save images to Supabase Storage and revisit recent history
+- Expo Android starter client using the same generation API
+- GitHub Actions build workflow and Render Blueprint
 
-## Run website locally
+## Website setup
 Requirements: Node.js 20+.
 ```bash
 cd web
 cp .env.example .env.local
-# Add your image provider key to .env.local
 npm install
 npm run dev
 ```
-Open http://localhost:3000. Without `OPENAI_API_KEY`, generation returns a setup error rather than a fake image.
+Open http://localhost:3000. Set `OPENAI_API_KEY` in `.env.local` for image generation. The API key must stay server-side.
 
-## Run Android client
+### Enable accounts and history
+1. Create a Supabase project.
+2. Run `supabase/schema.sql` in its SQL Editor.
+3. Copy the project URL and anon/public key into `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+4. Add the same two variables to the website hosting environment and redeploy.
+5. In Supabase Authentication, configure email sign-up/confirmation settings and your site's allowed redirect URLs.
+
+Without Supabase values, image generation still works, but account/history features stay disabled. Never put a Supabase service-role key in browser-visible variables.
+
+## Android setup
 ```bash
 cd mobile
 npm install
 cp .env.example .env
 npx expo start
 ```
-Set `EXPO_PUBLIC_API_BASE_URL` to your running website API. Android emulator: `http://10.0.2.2:3000`. A physical phone needs your computer's LAN IP.
+Set `EXPO_PUBLIC_API_BASE_URL` to the deployed website URL. Android emulator can use `http://10.0.2.2:3000`; a physical phone needs your computer's LAN IP. Build an installable Android package using Expo EAS Build: https://docs.expo.dev/build/setup/
 
-## Deploy
-- Website: deploy the `web` folder on Vercel or Render.
-- Add `OPENAI_API_KEY` as a server-side environment variable. Never expose it as a `NEXT_PUBLIC_*` or `EXPO_PUBLIC_*` value.
-- Android installable build: use Expo EAS Build: https://docs.expo.dev/build/setup/
+## Deployment
+Deploy the `web` folder on Render or Vercel. Configure `OPENAI_API_KEY`, `IMAGE_MODEL`, and the optional Supabase public variables in hosting settings. Image API use can incur charges.
 
-## Important
-This is an MVP starter, not a production-complete subscription service. Supabase login, image storage/history integration, usage limits, payments, moderation, and monitoring must be implemented before public launch. API usage may incur charges.
+## Not yet production complete
+Premium payments, free-tier quotas, provider-independent open-source generation, image editing, anti-abuse rate limits, operational monitoring, and a signed Android release still need implementation/testing before a public launch.
