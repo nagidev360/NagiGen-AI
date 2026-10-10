@@ -2,11 +2,28 @@
   "expo": {
     "name": "NagiGen AI",
     "slug": "nagigen-ai",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "backgroundColor": "#090a12"
+    },
     "android": {
-      "package": "com.nagicore.nagigenai"
+      "package": "com.nagicore.nagigenai",
+      "versionCode": 2,
+      "permissions": [
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO"
+      ]
+    },
+    "plugins": [
+      "expo-media-library"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "REPLACE_WITH_EAS_PROJECT_ID"
+      }
     }
   }
 }
