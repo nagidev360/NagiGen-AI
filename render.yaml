@@ -13,3 +13,7 @@ services:
         sync: false
       - key: IMAGE_MODEL
         value: gpt-image-1
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
